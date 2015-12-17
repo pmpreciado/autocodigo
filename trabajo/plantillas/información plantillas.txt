@@ -1,0 +1,31 @@
+Campos insertables en las plantillas:
+
+
+%NOMBRE_CLASE_ACCESO_BD%    Nombre de la clase usada para el acceso a la base de datos
+                                Ejemplo: DbMiTabla
+                            
+
+%NOMBRE_TABLA%              Nombre de la tabla
+                                Ejemplo: mi_tabla
+                            
+
+%LI_CAMPOS_1%               Lista con los campos, con un espacio en blanco antes del asterisco que inicia el comentario
+                                Ejemplo:
+                                     *   <ul>
+                                     *     <li>  0 id               Identificador del registro
+                                     *     <li>  1 nombre           Nombre
+                                     *     <li>  2 precio_final     Precio final del registro
+                                     *   </ul>
+                                 
+                                 
+%ARG_FUNCION_0%             Primero de los campos como argumento de entrada a una función:
+                                Ejemplo: int id
+
+                            
+%ARG_FUNCION_0%             Primero de los campos como argumento de entrada a una función:
+                                Ejemplo: int id
+
+%ARGS_FUNCION%              Todos los campos comos argumento de entrada a una función:
+                                Ejemplo: int id, String nombre, TipoDecimal precio_final
+                            
+                            

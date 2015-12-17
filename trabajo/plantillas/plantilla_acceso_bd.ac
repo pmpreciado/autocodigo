@@ -1,0 +1,276 @@
+import java.sql.ResultSet;
+
+
+public class DbSopr_pruebas extends DbUtil {
+
+
+    public static String NOMBRE_TABLA = "sopr_pruebas";
+
+
+    /**
+     * Crea una nueva instancia de la clase.
+     */
+    public DbSopr_pruebas()
+    {
+    }
+
+
+    /**
+     * Obtiene un registro de la tabla.
+     * 
+     * @param cnt                               Objeto contenedor
+     * @param pagina                            Contexto de la página
+     * @param concepto_garantia                 aaaaaaaa
+     * 
+     * @return                                  String [] con la información
+     *   <ul>
+     *     <li>  0 concepto_garantia            aaaaaaaa
+     *     <li>  1 tpc_var_max                  bbbbbbbb
+     *     <li>  2 tpc_var_min                  cccccc
+     *     <li>  3 filler_10x_1                 ddddddd
+     *     <li>  4 filler_10x_2                 deeeeeeee
+     *     <li>  5 contrato                     fffffff
+     *     <li>  6 version                      ggggg
+     *     <li>  7 scoring                      hhhhhhhhhhh
+     *     <li>  8 pricing                      iii
+     *     <li>  9 raroc                        jjjjjjjjj
+     *     <li> 10 primera_vivienda             kkkkkkkkkkkkkkk
+     *   </ul>
+     * 
+     * @throws ExtException                     Error en la operación
+     */
+    public String [] getRegistro(Contenedor cnt, Pagina pagina, String concepto_garantia)
+        throws ExtException
+    {
+        Parametros param = new Parametros();
+        param.add(concepto_garantia);
+        
+        String sql = "SELECT * FROM " + NOMBRE_TABLA + " " +
+            "WHERE concepto_garantia = ?";
+        
+        ResultSet rs = pagina.db.consulta(cnt, sql, param);
+        String [] result = getString(rs);
+        
+        return result;
+    }
+
+
+    /**
+     * Obtiene registros de la tabla.
+     * 
+     * @param cnt                               Objeto contenedor
+     * @param pagina                            Contexto de la página
+     * 
+     * @return                                  String [][] con la información
+     *   <ul>
+     *     <li>  0 concepto_garantia            aaaaaaaa
+     *     <li>  1 tpc_var_max                  bbbbbbbb
+     *     <li>  2 tpc_var_min                  cccccc
+     *     <li>  3 filler_10x_1                 ddddddd
+     *     <li>  4 filler_10x_2                 deeeeeeee
+     *     <li>  5 contrato                     fffffff
+     *     <li>  6 version                      ggggg
+     *     <li>  7 scoring                      hhhhhhhhhhh
+     *     <li>  8 pricing                      iii
+     *     <li>  9 raroc                        jjjjjjjjj
+     *     <li> 10 primera_vivienda             kkkkkkkkkkkkkkk
+     *   </ul>
+     * 
+     * @throws ExtException                     Error en la operación
+     */
+    public String [][] getRegistros(Contenedor cnt, Pagina pagina)
+        throws ExtException
+    {
+        String sql = "SELECT * FROM " + NOMBRE_TABLA + " " +
+            "ORDER BY concepto_garantia";
+        
+        ResultSet rs = pagina.db.consulta(cnt, sql);
+        String [][] result = getStrings(rs);
+        
+        return result;
+    }
+
+
+    /**
+     * Comprueba si existe el registro cuyo identificador se suministra.
+     * 
+     * @param cnt                               Objeto contenedor
+     * @param pagina                            Contexto de la página
+     * @param concepto_garantia                 aaaaaaaa
+     * 
+     * @return                                  'true' si existe
+     *                                          'false' si no existe
+     * 
+     * @throws ExtException                     Error en la operación
+     */
+    public boolean existe(Contenedor cnt, Pagina pagina, String concepto_garantia)
+        throws ExtException
+    {
+        Parametros param = new Parametros();
+        param.add(concepto_garantia);
+        
+        String sql = "SELECT COUNT(*) FROM " + NOMBRE_TABLA + " " +
+            "WHERE concepto_garantia = ?";
+        
+        ResultSet rs = pagina.db.consulta(cnt, sql, param);
+        boolean existe = getValor(rs) > 0;
+        
+        return existe;
+    }
+
+
+    /**
+     * Obtiene el siguiente identificador disponible para un nuevo registro en la tabla.
+     * 
+     * @param cnt                               Objeto contenedor
+     * @param pagina                            Contexto de la página
+     * 
+     * @return                                  Siguiente valor disponible
+     * 
+     * @throws ExtException                     Error en la operación
+     */
+    public int getNextId(Contenedor cnt, Pagina pagina)
+        throws ExtException
+    {
+        Parametros param = new Parametros();
+        param.add(concepto_garantia);
+        
+        int siguiente = getNextId(cnt, pagina, NOMBRE_TABLA, "concepto_garantia");
+        return siguiente;
+        
+    }
+
+
+    /**
+     * Inserta un registro en la tabla.
+     * 
+     * @param cnt                               Objeto contenedor
+     * @param pagina                            Contexto de la página
+     * @param concepto_garantia                 aaaaaaaa
+     * @param tpc_var_max                       bbbbbbbb
+     * @param tpc_var_min                       cccccc
+     * @param filler_10x_1                      ddddddd
+     * @param filler_10x_2                      deeeeeeee
+     * @param contrato                          fffffff
+     * @param version                           ggggg
+     * @param scoring                           hhhhhhhhhhh
+     * @param pricing                           iii
+     * @param raroc                             jjjjjjjjj
+     * @param primera_vivienda                  kkkkkkkkkkkkkkk
+     * 
+     * @return                                  Número de registros afectados tras la consulta
+     * 
+     * @throws ExtException                     Error en la operación
+     */
+    public int alta(Contenedor cnt, Pagina pagina, String concepto_garantia, TipoDecimal tpc_var_max, String tpc_var_min, 
+        String filler_10x_1, String filler_10x_2, String contrato, int version, String scoring, TipoDecimal pricing, TipoDecimal raroc, 
+        int primera_vivienda)
+        throws ExtException
+    {
+        Parametros param = new Parametros();
+        param.add(concepto_garantia);
+        param.add(tpc_var_max);
+        param.add(tpc_var_min);
+        param.add(filler_10x_1);
+        param.add(filler_10x_2);
+        param.add(contrato);
+        param.add(version);
+        param.add(scoring);
+        param.add(pricing);
+        param.add(raroc);
+        param.add(primera_vivienda);
+        
+        String sql = "INSERT INTO " + NOMBRE_TABLA + " " +
+            "(concepto_garantia, tpc_var_max, tpc_var_min, filler_10x_1, filler_10x_2, contrato, version, scoring, pricing, raroc, " + 
+            "primera_vivienda) " + 
+        "VALUES " + param.getCadenaValues();
+        
+        int result = pagina.db.consultaActualizacion(cnt, sql, param);
+        return result;
+    }
+
+
+    /**
+     * Actualiza el registro cuyo identificador se suministra.
+     * 
+     * @param cnt                               Objeto contenedor
+     * @param pagina                            Contexto de la página
+     * @param concepto_garantia                 aaaaaaaa
+     * @param tpc_var_max                       bbbbbbbb
+     * @param tpc_var_min                       cccccc
+     * @param filler_10x_1                      ddddddd
+     * @param filler_10x_2                      deeeeeeee
+     * @param contrato                          fffffff
+     * @param version                           ggggg
+     * @param scoring                           hhhhhhhhhhh
+     * @param pricing                           iii
+     * @param raroc                             jjjjjjjjj
+     * @param primera_vivienda                  kkkkkkkkkkkkkkk
+     * 
+     * @return                                  Número de registros afectados tras la consulta
+     * 
+     * @throws ExtException                     Error en la operación
+     */
+    public int update(Contenedor cnt, Pagina pagina, String concepto_garantia, TipoDecimal tpc_var_max, String tpc_var_min, 
+        String filler_10x_1, String filler_10x_2, String contrato, int version, String scoring, TipoDecimal pricing, TipoDecimal raroc, 
+        int primera_vivienda)
+        throws ExtException
+    {
+        Parametros param = new Parametros();
+        param.add(tpc_var_max);
+        param.add(tpc_var_min);
+        param.add(filler_10x_1);
+        param.add(filler_10x_2);
+        param.add(contrato);
+        param.add(version);
+        param.add(scoring);
+        param.add(pricing);
+        param.add(raroc);
+        param.add(primera_vivienda);
+        param.add(concepto_garantia);
+        
+        String sql = "UPDATE " + NOMBRE_TABLA + " " +
+            "SET tpc_var_max = ?, " + 
+            "tpc_var_min = ?, " + 
+            "filler_10x_1 = ?, " + 
+            "filler_10x_2 = ?, " + 
+            "contrato = ?, " + 
+            "version = ?, " + 
+            "scoring = ?, " + 
+            "pricing = ?, " + 
+            "raroc = ?, " + 
+            "primera_vivienda = ? " + 
+            "WHERE concepto_garantia = ?";
+        
+        int result = pagina.db.consultaActualizacion(cnt, sql, param);
+        return result;
+    }
+
+
+    /**
+     * Borra un registro dado por su identificador.
+     * 
+     * @param cnt                               Objeto contenedor
+     * @param pagina                            Contexto de la página
+     * @param concepto_garantia                 aaaaaaaa
+     * 
+     * @return                                  Número de registros afectados
+     * 
+     * @throws ExtException                     Error en la operación
+     */
+    public int delete(Contenedor cnt, Pagina pagina, String concepto_garantia)
+        throws ExtException
+    {
+        Parametros param = new Parametros();
+        param.add(concepto_garantia);
+        
+        String sql = "DELETE FROM " + NOMBRE_TABLA + " " + 
+            "WHERE concepto_garantia = ?";
+        
+        int result = pagina.db.consultaActualizacion(cnt, sql, param);
+        return result;
+    }
+
+
+}
+
